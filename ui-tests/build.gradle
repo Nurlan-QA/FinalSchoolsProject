@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure'
+}
+
+dependencies {
+    implementation project(':common')
+
+    testImplementation platform("org.junit:junit-bom:${rootProject.ext.junitVersion}")
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly    'org.junit.platform:junit-platform-launcher'
+
+    testImplementation "org.assertj:assertj-core:${rootProject.ext.assertjVersion}"
+    testImplementation "com.codeborne:selenide:${rootProject.ext.selenideVersion}"
+
+    testImplementation "io.qameta.allure:allure-jupiter:${rootProject.ext.allureVersion}"
+    testImplementation "io.qameta.allure:allure-selenide:${rootProject.ext.allureVersion}"
+    testImplementation "io.qameta.allure:allure-assertj:${rootProject.ext.allureVersion}"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.register('uiTest', Test) {
+    group = 'my_tests'
+    description = 'Run ALL Selenide UI tests'
+    outputs.upToDateWhen { false }
+    useJUnitPlatform {
+        include '**/ui/SelenideTest/tests/*Test.class'
+    }
+    testLogging {
+        events "started", "passed", "failed", "skipped"
+    }
+}
+
+tasks.register('uiSmokeTest', Test) {
+    group = 'my_tests'
+    description = 'Run UI smoke tests (tag: smoke)'
+    outputs.upToDateWhen { false }
+    useJUnitPlatform {
+        includeTags 'smoke'
+        include '**/ui/SelenideTest/tests/*Test.class'
+    }
+    testLogging {
+        events "started", "passed", "failed", "skipped"
+    }
+}

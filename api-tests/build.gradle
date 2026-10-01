@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure'
+}
+
+dependencies {
+    implementation project(':common')
+
+    testImplementation platform("org.junit:junit-bom:${rootProject.ext.junitVersion}")
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params'
+    testRuntimeOnly    'org.junit.platform:junit-platform-launcher'
+
+    testImplementation "org.assertj:assertj-core:${rootProject.ext.assertjVersion}"
+    testImplementation "io.rest-assured:rest-assured:${rootProject.ext.restAssuredVersion}"
+    testImplementation "com.fasterxml.jackson.core:jackson-databind:${rootProject.ext.jacksonVersion}"
+    testImplementation "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:${rootProject.ext.jacksonVersion}"
+
+    testImplementation "io.qameta.allure:allure-jupiter:${rootProject.ext.allureVersion}"
+    testImplementation "io.qameta.allure:allure-rest-assured:${rootProject.ext.allureVersion}"
+    testImplementation "io.qameta.allure:allure-assertj:${rootProject.ext.allureVersion}"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.register('apiTest', Test) {
+    group = 'my_tests'
+    description = 'Run ALL API tests'
+    outputs.upToDateWhen { false }
+    useJUnitPlatform {
+        include '**/api/tests/*Test.class'
+    }
+    testLogging {
+        events "started", "passed", "failed", "skipped"
+    }
+}
+
+tasks.register('apiSmokeTest', Test) {
+    group = 'my_tests'
+    description = 'Run API smoke tests (tag: smoke)'
+    outputs.upToDateWhen { false }
+    useJUnitPlatform {
+        includeTags 'smoke'
+        include '**/api/tests/*Test.class'
+    }
+    testLogging {
+        events "started", "passed", "failed", "skipped"
+    }
+}

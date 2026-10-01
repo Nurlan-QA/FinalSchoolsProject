@@ -1,0 +1,60 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '4.2.0' apply false
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+// Общие версии для всех модулей
+ext {
+    junitVersion   = '5.10.0'
+    allureVersion  = '2.24.0'
+    selenideVersion = '7.17.0'
+    restAssuredVersion = '5.5.6'
+    assertjVersion = '3.27.7'
+    jacksonVersion = '2.17.0'
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    group = rootProject.group
+    version = rootProject.version
+
+    repositories {
+        mavenCentral()
+    }
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+
+    // НЕ вызываем useJUnitPlatform() здесь.
+    // Настраиваем только общие для всех Test-тасков вещи.
+    tasks.withType(Test).configureEach {
+        testClassesDirs = sourceSets.test.output.classesDirs
+        classpath = sourceSets.test.runtimeClasspath
+        outputs.upToDateWhen { false }
+        systemProperty 'allure.results.directory',
+                "${project.buildDir}/allure-results"
+    }
+}
+
+// Агрегированный Allure-отчёт по обоим модулям
+tasks.register('allureReport', Exec) {
+    group = 'my_tests'
+    description = 'Собирает единый Allure-отчёт по API и UI тестам'
+    dependsOn ':api-tests:test', ':ui-tests:test'
+    commandLine 'allure', 'generate',
+            'api-tests/build/allure-results',
+            'ui-tests/build/allure-results',
+            '-o', 'build/allure-report',
+            '--clean'
+}
