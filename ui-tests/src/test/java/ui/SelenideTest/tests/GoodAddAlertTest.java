@@ -1,17 +1,12 @@
 package ui.SelenideTest.tests;
 
-import io.qameta.allure.Feature;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import common.config.ConfigProvider;
 import ui.SelenideTest.BaseTestSelenide;
 import ui.SelenideTest.pages.*;
-
-// Войти в админку и добавить товар. Проверить уведомление после добавления товара.
 
 @Feature("Админка")
 @Story("Создание товара")
@@ -29,6 +24,7 @@ public class GoodAddAlertTest extends BaseTestSelenide {
     private final String productName = ConfigProvider.getProductName() + "_" + UNIQUE_SUFFIX;
     private final String productPrice = ConfigProvider.getProductPrice();
 
+    @Description("Проверка уведомления после добавления товара в админке")
     @AfterEach
     void cleanUp() {
         productCleanup.removeProductByName(productName);

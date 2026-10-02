@@ -1,16 +1,12 @@
 package ui.SelenideTest.tests;
 
-import io.qameta.allure.Feature;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import common.config.ConfigProvider;
 import ui.SelenideTest.BaseTestSelenide;
 import ui.SelenideTest.pages.*;
 
-// Добавить товар в корзину и проверить, что он отображается.
 @Feature("Корзина")
 @Story("Список товаров в корзине")
 @Severity(SeverityLevel.CRITICAL)
@@ -26,6 +22,7 @@ public class GoodsAddToCartTest extends BaseTestSelenide {
     private final String productName = ConfigProvider.getProductName() + "_" + UNIQUE_SUFFIX;
     private final String productPrice = ConfigProvider.getProductPrice();
 
+    @Description("Добавление товара в корзину и проверка, что он отображается в ней.")
     @AfterEach
     void cleanUp() {
         productCleanup.removeProductByName(productName);

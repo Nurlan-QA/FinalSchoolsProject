@@ -1,9 +1,6 @@
 package ui.SelenideTest.tests;
 
-import io.qameta.allure.Feature;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import ui.SelenideTest.BaseTestSelenide;
@@ -19,6 +16,7 @@ import common.config.ConfigProvider;
 public class LogoPassInvalidTest extends BaseTestSelenide {
     private final LoginPage loginPage = new LoginPage();
 
+    @Description("Авторизация с некорректными логиним и паролем")
     @Tag("smoke")
     @Test
     void invalidLoginTest() {

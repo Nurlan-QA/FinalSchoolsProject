@@ -1,10 +1,7 @@
 package ui.SelenideTest.tests;
 
 import common.config.ConfigProvider;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import ui.SelenideTest.BaseTestSelenide;
@@ -27,6 +24,7 @@ public class CartTotalPriceTest extends BaseTestSelenide {
     private static final int COUNT = 3;
     private final int basePriceFromConfig = Integer.parseInt(ConfigProvider.getProductPrice());
 
+    @Description("Сверка итоговой суммы корзины")
     @AfterEach
     void cleanUp() {
         productCleanup.removeTestProducts();

@@ -1,9 +1,6 @@
 package ui.SelenideTest.tests;
 
-import io.qameta.allure.Feature;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import common.config.ConfigProvider;
@@ -24,6 +21,7 @@ public class DragAndDropTest extends BaseTestSelenide {
     private final String productName = ConfigProvider.getProductName() + "_" + UNIQUE_SUFFIX;
     private final String productPrice = ConfigProvider.getProductPrice();
 
+    @Description("Проверка счетчика корзины из витрины сайта")
     @AfterEach
     void cleanUp() {
         productCleanup.removeProductByName(productName);

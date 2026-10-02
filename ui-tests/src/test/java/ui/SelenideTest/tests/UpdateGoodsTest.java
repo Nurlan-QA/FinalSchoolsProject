@@ -1,10 +1,7 @@
 package ui.SelenideTest.tests;
 
 import common.config.ConfigProvider;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import ui.SelenideTest.BaseTestSelenide;
@@ -12,8 +9,6 @@ import ui.SelenideTest.pages.AdminPage;
 import ui.SelenideTest.pages.GoodsPage;
 import ui.SelenideTest.pages.LoginPage;
 import ui.SelenideTest.pages.ProductCleanup;
-
-import static com.codeborne.selenide.Selenide.open;
 
 @Feature("Админка")
 @Story("Изменение товара")
@@ -30,6 +25,7 @@ public class UpdateGoodsTest extends BaseTestSelenide {
     private final String originalProductName = ConfigProvider.getProductName() + "_" + uniqueSuffix;
     private final String updatedProductName = originalProductName + "_updated";
 
+    @Description("Изменение имени товара в админке")
     @AfterEach
     void cleanUp() {
         productCleanup.removeProductByName(updatedProductName);

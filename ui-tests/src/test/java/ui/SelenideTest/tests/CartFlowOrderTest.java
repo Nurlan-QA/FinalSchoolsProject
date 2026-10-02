@@ -27,6 +27,7 @@ public class CartFlowOrderTest extends BaseTestSelenide {
 
     private static final int COUNT = 3;
 
+    @Description("Проверка, что сумма трех товаров не превышает 300 руб")
     @AfterEach
     void cleanUpProducts() {
         productCleanup.removeTestProducts();

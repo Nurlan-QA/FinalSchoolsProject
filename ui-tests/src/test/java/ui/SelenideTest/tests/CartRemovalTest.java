@@ -1,9 +1,6 @@
 package ui.SelenideTest.tests;
 
-import io.qameta.allure.Feature;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import common.config.ConfigProvider;
@@ -31,6 +28,7 @@ public class CartRemovalTest extends BaseTestSelenide {
         productCleanup.removeProductByName(productName);
     }
 
+    @Description("Добавление товара в корзину методом Drug&Drop и проверка счетчика корзины")
     @Test
     void cartRemoval() {
         // Вход в админку
