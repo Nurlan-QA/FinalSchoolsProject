@@ -1,5 +1,9 @@
 package ui.SelenideTest.tests;
 
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import ui.SelenideTest.BaseTestSelenide;
@@ -7,6 +11,10 @@ import ui.SelenideTest.pages.LoginPage;
 import common.config.ConfigProvider;
 
 // Попытаться войти в админку с неверным логином и паролем.
+
+@Feature("Авторизация")
+@Story("Негативные сценарии")
+@Severity(SeverityLevel.BLOCKER)
 
 public class LogoPassInvalidTest extends BaseTestSelenide {
     private final LoginPage loginPage = new LoginPage();

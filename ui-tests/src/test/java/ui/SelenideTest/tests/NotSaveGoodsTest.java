@@ -1,5 +1,9 @@
 package ui.SelenideTest.tests;
 
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import common.config.ConfigProvider;
@@ -12,6 +16,10 @@ import static com.codeborne.selenide.Selenide.*;
 
 // Проверить сохранение товаров в корзине после обновления страницы.
 // Так как товар не сохраняется в корзине, то проверяем, что товар отсутствует в корзине
+
+@Feature("Корзина")
+@Story("Состояние корзины")
+@Severity(SeverityLevel.NORMAL)
 
 public class NotSaveGoodsTest extends BaseTestSelenide {
 

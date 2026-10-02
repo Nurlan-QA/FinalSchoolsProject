@@ -1,20 +1,26 @@
 package ui.SelenideTest.tests;
 
-import io.qameta.allure.Step;
+import common.config.ConfigProvider;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import common.config.ConfigProvider;
 import ui.SelenideTest.BaseTestSelenide;
-import ui.SelenideTest.pages.*;
+import ui.SelenideTest.pages.AdminPage;
+import ui.SelenideTest.pages.CartPage;
+import ui.SelenideTest.pages.GoodsPage;
+import ui.SelenideTest.pages.ProductCleanup;
 
-import static com.codeborne.selenide.Selenide.open;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+@Feature("Корзина")
+@Story("Оформление заказа")
+@Severity(SeverityLevel.BLOCKER)
 
 public class CartTotalPriceTest extends BaseTestSelenide {
 
     private final GoodsPage goodsPage = new GoodsPage();
     private final CartPage cartPage = new CartPage();
-    private final LoginPage loginPage = new LoginPage();
     private final AdminPage adminPage = new AdminPage();
     private final ProductCleanup productCleanup = new ProductCleanup();
 
@@ -29,49 +35,40 @@ public class CartTotalPriceTest extends BaseTestSelenide {
     @Test
     void cartTotalPrice() {
         String baseName = ConfigProvider.getProductName();
-        int sum = 0;
+        int expectedSum = 0;
 
-        // Вход в админку через LoginPage
-        open("/admin");
-        loginPage.assertPageLoaded();
-        loginPage.login(ConfigProvider.getAdminLogin(), ConfigProvider.getAdminPassword());
-
-        // Проверяем, что админка загрузилась
+        // Вход в админку через базовый метод
+        loginToAdmin();
         adminPage.assertPageLoaded();
 
         // Создаём товары через AdminPage
         for (int i = 1; i <= COUNT; i++) {
             String name = baseName + "_" + i;
             int price = basePriceFromConfig + i;
-            sum += price;
+            expectedSum += price;
             adminPage.createProduct(name, String.valueOf(price));
             System.out.println("Добавлен товар: " + name + ", цена: " + price);
         }
-
-        System.out.println("Ожидаемая сумма: " + sum);
+        System.out.println("Ожидаемая сумма: " + expectedSum);
 
         // Возврат на витрину
         adminPage.goToSite();
         goodsPage.assertPageLoaded();
 
-        // Добавляем в корзину через GoodsPage
+        // Добавляем в корзину
         for (int i = 1; i <= COUNT; i++) {
             goodsPage.addProductToCart(baseName + "_" + i);
         }
 
-        // Открываем корзину и проверяем
+        // Открываем корзину и проверяем сумму
         goodsPage.openCart();
         cartPage.assertItemsCount(COUNT);
-
         int totalPrice = cartPage.getTotalPrice();
-        checkTotalPrice(totalPrice, sum);
-
-
+        checkTotalPrice(totalPrice, expectedSum);
 
         cartPage.closeCartModal();
     }
 
-    @Step("Проверка: сумма в корзине ({actual}) равна расчётной ({expected})")
     private void checkTotalPrice(int actual, int expected) {
         org.junit.jupiter.api.Assertions.assertEquals(
                 expected, actual,

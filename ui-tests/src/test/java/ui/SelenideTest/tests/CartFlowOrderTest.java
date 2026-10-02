@@ -1,7 +1,7 @@
 package ui.SelenideTest.tests;
 
 import common.config.ConfigProvider;
-import io.qameta.allure.Step;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import ui.SelenideTest.BaseTestSelenide;
@@ -12,6 +12,10 @@ import java.util.List;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.assertj.core.api.Assertions.assertThat;
+
+@Feature("Корзина")
+@Story("Оформление заказа")
+@Severity(SeverityLevel.CRITICAL)
 
 public class CartFlowOrderTest extends BaseTestSelenide {
 

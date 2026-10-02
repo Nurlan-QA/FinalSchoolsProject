@@ -1,6 +1,10 @@
 package ui.SelenideTest.tests;
 
 import common.config.ConfigProvider;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import ui.SelenideTest.BaseTestSelenide;
@@ -10,6 +14,10 @@ import ui.SelenideTest.pages.LoginPage;
 import ui.SelenideTest.pages.ProductCleanup;
 
 import static com.codeborne.selenide.Selenide.open;
+
+@Feature("Админка")
+@Story("Изменение товара")
+@Severity(SeverityLevel.CRITICAL)
 
 public class UpdateGoodsTest extends BaseTestSelenide {
 
@@ -29,11 +37,8 @@ public class UpdateGoodsTest extends BaseTestSelenide {
 
     @Test
     void goodsUpdate() {
-        // Вход в админку через LoginPage
-        open("/admin");
-        loginPage.assertPageLoaded();
-        loginPage.login(ConfigProvider.getAdminLogin(), ConfigProvider.getAdminPassword());
-
+        // Вход в админку
+        loginToAdmin();
         adminPage.assertPageLoaded();
 
         // Создаём товар

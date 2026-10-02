@@ -1,5 +1,9 @@
 package ui.SelenideTest.tests;
 
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -8,6 +12,10 @@ import ui.SelenideTest.BaseTestSelenide;
 import ui.SelenideTest.pages.*;
 
 // Войти в админку и добавить товар. Проверить уведомление после добавления товара.
+
+@Feature("Админка")
+@Story("Создание товара")
+@Severity(SeverityLevel.NORMAL)
 
 public class GoodAddAlertTest extends BaseTestSelenide {
 

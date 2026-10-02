@@ -1,5 +1,9 @@
 package ui.SelenideTest.tests;
 
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import common.config.ConfigProvider;
@@ -7,6 +11,10 @@ import ui.SelenideTest.BaseTestSelenide;
 import ui.SelenideTest.pages.*;
 
 // Добавить товар в корзину и проверить, что он отображается.
+@Feature("Корзина")
+@Story("Список товаров в корзине")
+@Severity(SeverityLevel.CRITICAL)
+
 public class GoodsAddToCartTest extends BaseTestSelenide {
 
     private final AdminPage adminPage = new AdminPage();

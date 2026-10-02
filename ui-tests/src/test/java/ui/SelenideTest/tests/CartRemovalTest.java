@@ -1,10 +1,18 @@
 package ui.SelenideTest.tests;
 
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import common.config.ConfigProvider;
 import ui.SelenideTest.BaseTestSelenide;
 import ui.SelenideTest.pages.*;
+
+@Feature("Корзина")
+@Story("Оформление заказа")
+@Severity(SeverityLevel.CRITICAL)
 
 public class CartRemovalTest extends BaseTestSelenide {
 

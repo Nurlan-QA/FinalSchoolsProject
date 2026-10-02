@@ -1,10 +1,18 @@
 package ui.SelenideTest.tests;
 
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import common.config.ConfigProvider;
 import ui.SelenideTest.BaseTestSelenide;
 import ui.SelenideTest.pages.*;
+
+@Feature("Витрина")
+@Story("Список товаров")
+@Severity(SeverityLevel.CRITICAL)
 
 public class GoodsAddAdminTest extends BaseTestSelenide {
 
